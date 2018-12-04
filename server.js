@@ -21,4 +21,4 @@ app.listen(3000,()=>{
   console.log('Express server started at port : 3000');  //start the server at port 3000
 });
 
-app.use('/employee',employeeController); //'use' middleware
+app.use('/employee',employeeController); //'use' middleware, base url of employee

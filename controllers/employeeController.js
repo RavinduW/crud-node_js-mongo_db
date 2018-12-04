@@ -23,12 +23,42 @@ function insertRecord(req,res){
     if(!err)
       res.redirect('employee/list');
       else{
+        if(err.name == 'ValidationError'){
+        handleValidationError(err,req.body);
+        res.render("employee/addOrEdit",{
+          viewTitle:"Insert Employee",
+          employee: req.body
+        }); 
+        }else{
         console.log('Errror during record insertion : ' +err);
-      }
+        }
+      } 
   });
 }
 
 router.get('/list',(req,res)=>{
   res.json('from list');
 });
+
+function handleValidationError(err,body){
+  for(field in err.errors){
+    switch(err.errors[field].path){
+      case 'fullName' :
+        body['fullNameError'] = err.errors[field].message;
+        break;
+      case 'email' :
+        body['emailError'] = err.errors[field].message;
+        break;  
+      case 'mobile' :
+        body['mobileError'] = err.errors[field].message;
+        break;
+      case 'city' :
+        body['cityError'] = err.errors[field].message;
+        break;
+      default:
+        break;
+    }
+  }
+}
+
 module.exports = router;
