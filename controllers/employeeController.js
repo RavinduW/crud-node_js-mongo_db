@@ -36,8 +36,18 @@ function insertRecord(req,res){
   });
 }
 
+//get the employee data
 router.get('/list',(req,res)=>{
-  res.json('from list');
+  //res.json('from list');
+  Employee.find( (err,docs)=>{
+    if(!err){
+      res.render("employee/list",{
+        list:docs
+      });
+    }else{
+      console.log("Error in retrieving employee list: "+err);
+    }
+  });
 });
 
 function handleValidationError(err,body){
