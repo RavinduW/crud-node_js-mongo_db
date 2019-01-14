@@ -108,4 +108,14 @@ router.get('/:id',(req,res)=>{
   )
 });
 
+router.get('/delete/:id',(req,res)=>{
+  Employee.findByIdAndRemove(req.params.id,(err,doc)=>{
+    if(!err){
+      res.redirect('/employee/list');
+    }else{
+      console.log('Error occured when deleting:'+err);
+    }
+  });
+});
+
 module.exports = router;
