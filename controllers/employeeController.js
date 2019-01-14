@@ -9,6 +9,7 @@ router.get('/',(req,res)=>{
     });
 });
 
+//routes to update or insert
 router.post('/',(req,res)=>{
   if(req.body._id == ""){
    insertRecord(req,res);
@@ -17,6 +18,7 @@ router.post('/',(req,res)=>{
   }
 });
 
+//insert method
 function insertRecord(req,res){
   var employee = new Employee();
   employee.fullName = req.body.fullName;
@@ -40,6 +42,7 @@ function insertRecord(req,res){
   });
 }
 
+//update function
 function updateRecord(req,res){
   Employee.findOneAndUpdate(
     {_id:req.body._id},req.body,{new:true},(err,doc)=>{
@@ -75,6 +78,7 @@ router.get('/list',(req,res)=>{
   });
 });
 
+//validation errors
 function handleValidationError(err,body){
   for(field in err.errors){
     switch(err.errors[field].path){
@@ -96,6 +100,7 @@ function handleValidationError(err,body){
   }
 }
 
+//for update a particular entity
 router.get('/:id',(req,res)=>{
   Employee.findById(req.params.id,(err,doc)=>{
     if(!err){
@@ -108,6 +113,7 @@ router.get('/:id',(req,res)=>{
   )
 });
 
+//delete route
 router.get('/delete/:id',(req,res)=>{
   Employee.findByIdAndRemove(req.params.id,(err,doc)=>{
     if(!err){

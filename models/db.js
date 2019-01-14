@@ -6,3 +6,5 @@ mongoose.connect('mongodb://localhost:27017/employeeDB',{ useNewUrlParser:true }
 }); //make the db connection with mongoDB database
 
 require('./employee.model'); //employee model(request statement)
+
+mongoose.set('useFindAndModify', false);//for avoid depricated warnings
